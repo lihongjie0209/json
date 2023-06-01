@@ -91,16 +91,7 @@ public class Json {
         @Override
         public void exitKv(JsonParser.KvContext ctx) {
             KVHolder pop = (KVHolder) s.pop();
-            ((Map) s.peek()).put(unwrap(pop.k), pop.v);
-        }
-
-        public String unwrap(String src){
-
-            if (src.startsWith("\"") && src.endsWith("\"")) {
-                return src.substring(1, src.length() - 1);
-            }else {
-                return src;
-            }
+            ((Map) s.peek()).put(Utils.unwrap(pop.k), pop.v);
         }
 
         @Override
@@ -117,7 +108,7 @@ public class Json {
 
         @Override
         public void exitStringValue(JsonParser.StringValueContext ctx) {
-            Object value = unwrap(ctx.STRING().getText());
+            Object value = Utils.unwrap(ctx.STRING().getText());
             setValue(value);
         }
 
@@ -125,7 +116,7 @@ public class Json {
         @Override
         public void exitNumberValue(JsonParser.NumberValueContext ctx) {
             String text = ctx.NUMBER().getText();
-            Object value = text.contains(".") ? Double.parseDouble(text) : Integer.parseInt(text);
+            Object value = Utils.parseNumber(text);
             setValue(value);
         }
 
