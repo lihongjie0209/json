@@ -67,10 +67,10 @@ class JsonTest {
 
     @Test
     void testToList1() {
-        List<Object> map;
-        map = Json.toList("[]");
+        List<Object> val;
+        val = Json.toList("[]");
 
-        Assertions.assertEquals(map.size(), 0);
+        Assertions.assertEquals(val.size(), 0);
     }
     @Test
     void testToList2() {
